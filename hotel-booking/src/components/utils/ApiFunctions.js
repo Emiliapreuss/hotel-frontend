@@ -4,6 +4,50 @@ export const api = axios.create({
     baseURL: "http://localhost:9192"
 })
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`; // Add the token to the Authorization header
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+export async function loginUser(credentials) {
+    try {
+        const response = await api.post("/auth/login", credentials);
+        if (response.status === 200) {
+            const token = response.data; // Assuming the backend returns the token as plain text
+            // Store the token for future authenticated requests
+            localStorage.setItem("authToken", token);
+            return true;
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data);
+        } else {
+            throw new Error(`Error logging in: ${error.message}`);
+        }
+    }
+}
+
+export async function registerUser(userDetails) {
+    try {
+        const response = await api.post("/auth/register", userDetails);
+        if (response.status === 200 || response.status === 201) {
+            return true; // Registration successful
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data); // Backend error message
+        } else {
+            throw new Error(`Error registering user: ${error.message}`);
+        }
+    }
+}
+
+
 export async function addRoom(photo, type, price) {
     const formData = new FormData()
     formData.append("photo", photo)
