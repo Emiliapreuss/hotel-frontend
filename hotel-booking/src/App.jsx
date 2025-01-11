@@ -5,7 +5,7 @@ import NavBar from "./components/layout/Navbar";
 import AddRoom from "./components/room/AddRoom";
 import EditRoom from "./components/room/EditRoom";
 import ExistingRooms from "./components/room/ExistingRooms";
-import Checkout from "./components/booking/Checkout";
+import BookingForm from "./components/booking/BookingForm";
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,6 +19,7 @@ import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
 import Logout from "./components/authentication/Logout";
 import HomePageRedirect from "./routes/HomePageRedirect";
+import BookingListing from "./components/booking/BookingListing";
 function App() {
   return (
     <>
@@ -31,7 +32,8 @@ function App() {
             <Route path="/edit-room/:roomId" element={<EditRoom />} />
             <Route path="/existing-rooms" element={<ExistingRooms />} />
             <Route path="/add-room" element={<AddRoom />} />
-            <Route path="/book-room/:roomId" element={<Checkout />} />
+            <Route path="/book-room/:roomId" element={<BookingForm />} />
+            <Route path="/bookings" element={<BookingListing />} />
             <Route path="/browse-rooms" element={<RoomListing />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/booking-success" element={<BookingSuccess />} />

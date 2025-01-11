@@ -1,75 +1,35 @@
-import { useEffect, useState } from "react";
-import RoomCard from "./RoomCard";
-import RoomFilter from "../common/RoomFilter";
-import RoomPaginator from "../common/RoomPaginator";
-import { Container, Col, Row } from "react-bootstrap";
-import { getAllRooms } from "../utils/ApiFunctions";
-
-const Room = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [roomsPerPage, setRoomsPerPage] = useState(6);
-  const [filteredData, setFilteredData] = useState([{ id: "" }]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllRooms()
-      .then((data) => {
-        setData(data);
-        setFilteredData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      });
-  }, []);
-  if (isLoading) {
-    return <div>Loading rooms...</div>;
-  }
-  if (error) {
-    return <div className="text-danger">Error: {error}</div>;
-  }
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const totalPages = Math.ceil(filteredData.length / roomsPerPage);
-
-  const renderRooms = () => {
-    const startIndex = (currentPage - 1) * roomsPerPage;
-    const endIndex = startIndex + roomsPerPage;
-    return filteredData
-      .slice(startIndex, endIndex)
-      .map((room) => <RoomCard key={room.id} room={room} />);
-  };
+import { Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+const Room = ({ room }) => {
   return (
-    <Container>
-      <Row>
-        <Col md={6} className="mb-3 mb-md-0">
-          <RoomFilter data={data} setFilteredData={setFilteredData} />
-        </Col>
-        <Col md={6} className="d-flex align-items-center justify-content-end">
-          <RoomPaginator
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </Col>
-      </Row>
-      <Row>{renderRooms()}</Row>
-      <Row>
-        <Col md={6} className="d-flex align-items-center justify-content-end">
-          <RoomPaginator
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <Col className="mb-4" xs={12}>
+      <Card>
+        <Card.Body className="d-flex flex-wrap align-items-center">
+          <div className="flex-shrink-0 mr-3 mb-3 mb-md-0">
+            <Link to={`/book-room/${room.id}`} className="btn btn-hotel btn-sm">
+              <Card.Img
+                variant="top"
+                src={room.photo}
+                alt="Room Photo"
+                style={{ width: "100%", maxWidth: "200px", height: "auto" }}
+              />
+            </Link>
+          </div>
+          <div className="flex-grow-1 ml-3 px-5">
+            <Card.Title className="hotel-color">{room.type}</Card.Title>
+            <Card.Title className="room-price">
+              {room.price}$ / night
+            </Card.Title>
+            <Card.Text className="hotel-color">room information</Card.Text>
+          </div>
+          <div className="flex-shrink-0 mt-3">
+            <Link to={`/book-room/${room.id}`} className="btn btn-hotel btn-sm">
+              Book Now
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

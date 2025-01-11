@@ -38,13 +38,22 @@ const NavBar = () => {
         {/* Right side: Login and Register */}
         <div className="d-flex align-items-center">
           {loggedIn ? (
-            <NavLink
-              className="nav-link ms-3"
-              aria-current="page"
-              to={"/logout"}
-            >
-              Logout
-            </NavLink>
+            <>
+              <NavLink
+                className="nav-link ms-3"
+                aria-current="page"
+                to={"/bookings"}
+              >
+                Your bookings
+              </NavLink>
+              <NavLink
+                className="nav-link ms-3"
+                aria-current="page"
+                to={"/logout"}
+              >
+                Logout
+              </NavLink>
+            </>
           ) : (
             <>
               <NavLink

@@ -17,8 +17,6 @@ const BookingForm = () => {
     checkOutDate: null,
     numOfAdults: 1,
     numOfChildren: 0,
-    guestFullName: "",
-    guestEmail: "",
   });
   const [isValidated, setIsValidated] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -144,36 +142,6 @@ const BookingForm = () => {
                   disabledDate={isDateDisabled}
                 />
               </Form.Group>
-
-              <Form.Group>
-                <Form.Label htmlFor="guestFullName">Full Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  id="guestFullName"
-                  name="guestFullName"
-                  value={booking.guestFullName}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter your name.
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label htmlFor="guestEmail">Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="guestEmail"
-                  value={booking.guestEmail}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter a valid email address.
-                </Form.Control.Feedback>
-              </Form.Group>
-
               <Form.Group>
                 <Form.Label>Number of Adults</Form.Label>
                 <Form.Control

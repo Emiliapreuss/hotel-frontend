@@ -133,6 +133,15 @@ export async function getAllBookingsByRoomId(roomId) {
     }
 }
 
+export async function getAllBookingsByUser() {
+    try {
+        const result = await api.get(`/bookings/user`)
+        return result.data
+    } catch (error) {
+         throw new Error(`Error fetching bookings: ${error.message}`)
+    }
+}
+
 export async function getBookingByConfirmationCode(confirmationCode) {
        try {
         const result = await api.get(`/bookings/confirmation/${confirmationCode}`)
@@ -147,9 +156,9 @@ export async function getBookingByConfirmationCode(confirmationCode) {
     } 
 }
 
-export async function cancelBooking(bookingId) {
+export async function cancelBooking(confirmationCode) {
     try {
-        const result = await api.delete(`/bookings//booking/${bookingId}/delete`)
+        const result = await api.delete(`/bookings/booking/${confirmationCode}/delete`)
         return result.data
     } catch (error) {
         throw new Error(`Error cancelling booking: ${error.message}`)

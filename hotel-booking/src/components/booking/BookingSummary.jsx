@@ -31,24 +31,18 @@ const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
     <div className="card card-body mt-5">
       <h4> Reservation Summary</h4>
       <p>
-        Fullname: <stong>{booking.guestName}</stong>
-      </p>
-      <p>
-        Email: <stong>{booking.guestEmail}</stong>
-      </p>
-      <p>
         Check-in date:{" "}
-        <stong>{moment(booking.checkInDate).format("Do MMM YYYY")}</stong>
+        <strong>{moment(booking.checkInDate).format("Do MMM YYYY")}</strong>
       </p>
       <p>
         Check-out date:{" "}
-        <stong>{moment(booking.checkOutDate).format("Do MMM YYYY")}</stong>
+        <strong>{moment(booking.checkOutDate).format("Do MMM YYYY")}</strong>
       </p>
       <p>
         Number of days: <stong>{numOfDays}</stong>
       </p>
-      <div>
-        <h5>Number of Guests</h5>
+      <div className="mt-4">
+        <h5 className="mb-2">Number of Guests</h5>
         <strong>
           Adult{booking.numOfAdults > 1 ? "s" : ""}: {booking.numOfAdults}
         </strong>
@@ -56,7 +50,7 @@ const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
       </div>
       {
         <>
-          <p>
+          <p className="mb-4">
             Total payment: <strong>${payment}</strong>
           </p>
           {isFormValid && !isBookingConfirmed ? (

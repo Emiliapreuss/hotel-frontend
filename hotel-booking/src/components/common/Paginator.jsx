@@ -1,5 +1,6 @@
-const RoomPaginator = ({ currentPage, totalPages, onPageChange }) => {
+const Paginator = ({ currentPage, totalPages, onPageChange }) => {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   return (
     <nav>
       <ul className="pagination justify-content-center">
@@ -23,4 +24,4 @@ const RoomPaginator = ({ currentPage, totalPages, onPageChange }) => {
   );
 };
 
-export default RoomPaginator;
+export default Paginator;
